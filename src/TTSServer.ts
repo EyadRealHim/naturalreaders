@@ -50,12 +50,12 @@ export default class TTSServer {
     }
 
     public async createClients(count: number = 1, parallelize: boolean = false) {
-        const lazyClients = new Array(count).fill(0).map(() => this.createClient())
+        const range = new Array(count).fill(0)
 
         if (parallelize) {
-            await Promise.all(lazyClients)
-        } else for (const client of lazyClients) {
-            await client
+            await Promise.all(range.map(() => this.createClient()))
+        } else for (const _ of range) {
+            await this.createClient()
         }
     }
 

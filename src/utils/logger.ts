@@ -30,6 +30,6 @@ export default class Logger {
 
   public log(kind: "Warning" | "Info" | "Debug", ...args: any[]) {
     if (!this.enable) return;
-    console.log(`[${kind}]`, ...args);
+    console.log(`[${kind}(${new Date().toLocaleTimeString()})]`, ...args);
   }
 }

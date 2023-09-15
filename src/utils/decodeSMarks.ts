@@ -1,3 +1,4 @@
+
 export type Mark = {
     content: string;
     index: number;
@@ -5,7 +6,7 @@ export type Mark = {
 }
 
 export default function decodeSMarks(raw: string) {
-    const string = atob(raw);
+    const string = Buffer.from(raw, "base64").toString()
     const separator = string[0] || ",";
     const data = string.slice(2).split(separator);
 

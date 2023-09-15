@@ -149,13 +149,15 @@ export default class TTSClient {
                 const headers = await response.allHeaders()
                 SMarks = headers["X-SMark".toLowerCase()] || ""
 
-            } else if (url.includes("blob:") && SMarks) {
+            } else if (url.startsWith("blob:") && SMarks) {
                 try {
                     this.callback?.call(null, {
                         marks: decodeSMarks(SMarks),
                         buffer: await response.body()
                     })
-                } catch (e) { }
+                } catch (e) {
+                    console.error(e)
+                }
                 SMarks = ""
             }
         })
