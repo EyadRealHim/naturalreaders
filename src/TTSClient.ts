@@ -78,8 +78,17 @@ export default class TTSClient {
                 input.innerHTML = `<p>${text}`
             }, text)
 
-            await this.page.click(READ_BUTTON)
-            await this.page.waitForSelector(READ_BUTTON_PLAYING)
+            do {
+                try {
+                    await this.page.click(READ_BUTTON_PAUSED)
+                    await this.page.waitForSelector(READ_BUTTON_PLAYING, {
+                        timeout: 8_000
+                    })
+                    break
+                } catch (e) { }
+            } while (
+                !await this.page.$(READ_BUTTON_PLAYING)
+            )
             await this.page.waitForSelector(READ_BUTTON_PAUSED)
 
             payload = await loadPayload

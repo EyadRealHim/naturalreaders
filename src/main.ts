@@ -59,6 +59,7 @@ app.get("/tts/:voice", async (request, response) => {
 
         response.end(payload.buffer);
     } catch (e) {
+        console.error(e)
         response.send(500).send("Something went wrong");
     }
 });
