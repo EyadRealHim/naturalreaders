@@ -74,5 +74,9 @@ app.get("/create", async (_, response) => {
     }
 });
 
+app.get("/ping", (_, response) => {
+    response.send("Pong!")
+})
+
 
 start();
